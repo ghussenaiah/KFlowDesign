@@ -50,6 +50,10 @@ export default function addToolbarItem(graph, toolbar, prototype, image) {
 
 
 
+
+
+
+
   function updateBoundaryOverlay(vertex) {
 
     //graph.boundaryOverlay(vertex)
@@ -80,6 +84,7 @@ export default function addToolbarItem(graph, toolbar, prototype, image) {
     graph.refresh(); // Refresh the graph to update the overlay
   }
 
+  var parent = graph.getDefaultParent();
   graph.addListener(mxEvent.ADD_CELLS, function (sender, evt) {
     var cells = evt.getProperty('cells');
     for (var i = 0; i < cells.length; i++) {
@@ -93,7 +98,26 @@ export default function addToolbarItem(graph, toolbar, prototype, image) {
     var cells = evt.getProperty('cells');
     for (var i = 0; i < cells.length; i++) {
       if (cells[i].isVertex()) {
-        // updateBoundaryOverlay(cells[i]);
+        var isPartOfGroup = false;
+
+        var vertex=cells[i];
+
+       var groups = graph.getChildVertices(parent);
+       for (var i = 0; i < groups.length; i++) {
+         var groupCell = groups[i];
+         var groupGeometry = groupCell.getGeometry();
+
+       if (groupGeometry.contains(vertex.getGeometry())) {
+          isPartOfGroup = true;
+          break;
+         }
+}
+
+if (isPartOfGroup) {
+  console.log('The vertex is part of a group.');
+} else {
+  console.log('The vertex is not part of a group.');
+}
       }
     }
   });
@@ -106,6 +130,52 @@ export default function addToolbarItem(graph, toolbar, prototype, image) {
       }
     }
   });
+
+
+ /* graph.popupMenuHandler.factoryMethod = function (menu, cell, evt) {
+    if (cell.edge) {
+      menu.addItem('First edge option', null, function () {
+        alert('This is the first option of edge ');
+      })
+      menu.addItem('Second edge option', null, function () {
+        alert('This is the second option of edge ');
+      })
+    }
+    if (cell.vertex) {
+      alert('This is the first option of vertex ');
+      menu.addItem('First vertex option', null, function () {
+
+      })
+      menu.addItem('Second vertex option', null, function () {
+        alert('This is the second option of vertex ');
+      })
+    }
+  } */
+  graph.popupMenuHandler.factoryMethod = function(menu, cell, evt) {
+    if (cell != null) {
+      // Add custom menu items for cells
+      menu.addItem("Custom Item 1", null, function() {
+        // Custom action for item 1
+        alert("Custom Item 1 clicked");
+      });
+      menu.addItem("Custom Item 2", null, function() {
+        // Custom action for item 2
+        alert("Custom Item 2 clicked");
+      });
+    } else {
+      // Add custom menu items for the background
+      menu.addItem("Custom Item 3", null, function() {
+        // Custom action for item 3
+        alert("Custom Item 3 clicked");
+      });
+    }
+  };
+  // Enable the default context menu
+//mxEvent.disableContextMenu(container);
+
+// Attach the popup menu handler to the graph
+graph.popupMenuHandler.setEnabled(true);
+
 
   mxUtils.makeDraggable(img, graph, funct);
 

@@ -29,6 +29,11 @@ export default function initToolbar(graph, tbContainer) {
     new mxDivResizer(tbContainer);
   }
 
+
+
+
+
+
   //graph.setAutoSizeCells(true);
 
 
@@ -49,6 +54,7 @@ export default function initToolbar(graph, tbContainer) {
       vertex.value = value;
     }
     vertex.setVertex(true);
+    
 
     var img = addToolbarItem(graph, toolbar, vertex, icon);
     img.enabled = true;

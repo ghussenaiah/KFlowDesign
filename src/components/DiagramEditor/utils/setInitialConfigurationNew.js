@@ -5,7 +5,7 @@ import {
   mxClient,
   mxUtils,
   mxEvent,
-  mxEdgeHandler, mxCell, mxCellRenderer, mxConstants, mxEdgeStyle, mxCellOverlay, mxShape
+  mxEdgeHandler, mxCell, mxCellRenderer, mxConstants, mxEdgeStyle, mxCellOverlay, mxShape, mxSwimlaneLayout, mxPerimeter, mxGeometry, mxImage
   // mxShape,mxCellRenderer
 } from "mxgraph-js";
 import initToolbar from "./initToolbar";
@@ -132,12 +132,108 @@ export default function setInitialConfiguration(graph, toolbarRef) {
 
     mxEdgeHandler.prototype.addEnabled = true;
 
+
+    var layout = new mxSwimlaneLayout(graph);
+
+    // Moves stuff wider apart than usual
+    //layout.forceConstant = 80;
+
+    // Reference to the transition checkbox
+    var animate = document.getElementById('animate');
+
+    style = [];
+    style[mxConstants.STYLE_SHAPE] = mxConstants.SHAPE_SWIMLANE;
+    style[mxConstants.STYLE_PERIMETER] = mxPerimeter.RectanglePerimeter;
+    style[mxConstants.STYLE_STROKECOLOR] = '#a0a0a0';
+    style[mxConstants.STYLE_FONTCOLOR] = '#606060';
+    style[mxConstants.STYLE_FILLCOLOR] = '#E0E0DF';
+    style[mxConstants.STYLE_GRADIENTCOLOR] = 'white';
+    style[mxConstants.STYLE_STARTSIZE] = 30;
+    style[mxConstants.STYLE_ROUNDED] = false;
+    style[mxConstants.STYLE_FONTSIZE] = 12;
+    style[mxConstants.STYLE_FONTSTYLE] = 0;
+    style[mxConstants.STYLE_HORIZONTAL] = false;
+    // To improve text quality for vertical labels in some old IE versions...
+    style[mxConstants.STYLE_LABEL_BACKGROUNDCOLOR] = '#efefef';
+    graph.getStylesheet().putCellStyle('swimlane', style);
+
+
+
+    var group = new mxCell();
+    group.setVertex(true);
+    // group.setVisible(true);
+    group.setValue('group');
+    group.setStyle('swimlane');
+    group.setCollapsed(false);
+    group.setConnectable(false);
+
+    var geometry = group.getGeometry();
+    if (geometry) {
+      // If the cell already has a geometry, update its attributes
+      geometry.x = 100; // Set the x-coordinate of the cell
+      geometry.y = 100; // Set the y-coordinate of the cell
+      geometry.width = 200; // Set the width of the cell
+      geometry.height = 100; // Set the height of the cell
+      // Update any other relevant geometry attributes
+    } else {
+      var geometry = new mxGeometry(100, 100, 200, 100);
+    }
+    // group.setGridEnabled(true);
+    //group.setVertexLabelsMovable(true);
+    group.setGeometry(geometry);
+    //group.setEnabled(true);
+
+
+    style = [];
+    style[mxConstants.STYLE_SHAPE] = mxConstants.SHAPE_SWIMLANE;
+    style[mxConstants.STYLE_PERIMETER] = mxPerimeter.RectanglePerimeter;
+    style[mxConstants.STYLE_STROKECOLOR] = '#a0a0a0';
+    style[mxConstants.STYLE_FONTCOLOR] = '#606060';
+    style[mxConstants.STYLE_FILLCOLOR] = '#E0E0DF';
+    style[mxConstants.STYLE_GRADIENTCOLOR] = 'white';
+    style[mxConstants.STYLE_STARTSIZE] = 30;
+    style[mxConstants.STYLE_ROUNDED] = false;
+    style[mxConstants.STYLE_FONTSIZE] = 12;
+    style[mxConstants.STYLE_FONTSTYLE] = 0;
+    style[mxConstants.STYLE_HORIZONTAL] = false;
+    // To improve text quality for vertical labels in some old IE versions...
+    style[mxConstants.STYLE_LABEL_BACKGROUNDCOLOR] = '#efefef';
+    graph.getStylesheet().putCellStyle('swimlane', style);
+
+
+    //var group = new mxCell('Group', new mxGeometry(10, 10, 200, 100), 'group');
+    //group.setVertex(true);
+
+
     graph.getModel().beginUpdate();
     try {
       //mxGrapg component
       var doc = mxUtils.createXmlDocument();
       var node = doc.createElement("S");
       node.setAttribute("ComponentID", "[P01]");
+
+      graph.addCell(group, parent);
+
+
+      graph.enterGroup(group);
+
+      // Create and add child cells
+      var child1 = graph.insertVertex(group, null, 'Child 1', 300, 150, 80, 30);
+      var child2 = graph.insertVertex(group, null, 'Child 2', 150, 300, 80, 30);
+
+      // You can continue adding more child cells to the group as needed
+
+      // Exit the group
+      graph.exitGroup();
+      /* var lane1 = graph.insertVertex(parent, null, 'Lane 1', 0, 0, 1000, 100, 'swimlane');
+        var lane2 = graph.insertVertex(parent, null, 'Lane 2', 0, 100, 1000, 100, 'swimlane');
+        lane1.setConnectable(false);
+        lane2.setConnectable(false);
+  
+        layout.orientation = mxConstants.DIRECTION_EAST;
+  
+        layout.resizeParent = false;
+        layout.execute(parent, [lane1, lane2]); */
 
 
       /* Experiment 
@@ -225,7 +321,63 @@ export default function setInitialConfiguration(graph, toolbarRef) {
     }
 
 
-  
+
+    // Creates a new overlay with an image and a tooltip and makes it "transparent" to events
+    var overlay = new mxCellOverlay(
+      new mxImage('editors/images/overlays/check.png', 16, 16),
+      'Overlay tooltip');
+
+    var mxCellRendererInstallCellOverlayListeners = mxCellRenderer.prototype.installCellOverlayListeners;
+    mxCellRenderer.prototype.installCellOverlayListeners = function (state, overlay, shape) {
+      mxCellRendererInstallCellOverlayListeners.apply(this, arguments);
+      var graph = state.view.graph;
+
+      mxEvent.addGestureListeners(shape.node,
+        function (evt) {
+          graph.fireMouseEvent(mxEvent.MOUSE_DOWN,
+            new mxMouseEvent(evt, state));
+        },
+        function (evt) {
+          graph.fireMouseEvent(mxEvent.MOUSE_MOVE,
+            new mxMouseEvent(evt, state));
+        });
+
+      if (!mxClient.IS_TOUCH) {
+        mxEvent.addListener(shape.node, 'mouseup', function (evt) {
+          overlay.fireEvent(new mxEventObject(mxEvent.CLICK,
+            'event', evt, 'cell', state.cell));
+        });
+      }
+    };
+
+    // Sets the overlay for the cell in the graph
+    //  graph.addCellOverlay(v1, overlay);
+
+    // Configures automatic expand on mouseover
+    graph.popupMenuHandler.autoExpand = true;
+
+    // Installs context menu
+    graph.popupMenuHandler.factoryMethod = function (menu, cell, evt) {
+      menu.addItem('Item 1', null, function () {
+        alert('Item 1');
+      });
+
+      menu.addItem('Item 2', null, function () {
+        alert('Item 2');
+      });
+
+      menu.addSeparator();
+
+      var submenu1 = menu.addItem('Submenu 1', null, null);
+
+      menu.addItem('Subitem 1', null, function () {
+        alert('Subitem 1');
+      }, submenu1);
+      menu.addItem('Subitem 1', null, function () {
+        alert('Subitem 2');
+      }, submenu1);
+    };
+
 
     // Enables rubberband (marquee) selection and a handler for basic keystrokes
     var rubberband = new mxRubberband(graph);
