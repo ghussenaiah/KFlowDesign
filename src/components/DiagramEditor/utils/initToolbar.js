@@ -50,11 +50,14 @@ export default function initToolbar(graph, tbContainer) {
 
   var addVertex = function (icon, w, h, style, value = null) {
     var vertex = new mxCell(null, new mxGeometry(0, 0, w, h), style);
+
+
+
     if (value) {
       vertex.value = value;
     }
     vertex.setVertex(true);
-    
+
 
     var img = addToolbarItem(graph, toolbar, vertex, icon);
     img.enabled = true;
@@ -73,8 +76,8 @@ export default function initToolbar(graph, tbContainer) {
 
   addVertex(
     "images/start.png",
-    75,
-    75,
+    70,
+    70,
     getStyleStringByObj({
       ...baseStyle
       , [mxConstants.SHAPE_IMAGE]: "images/start.png"
@@ -84,8 +87,8 @@ export default function initToolbar(graph, tbContainer) {
 
   addVertex(
     "images/create.png",
-    75,
-    75,
+    70,
+    70,
     getStyleStringByObj({
       ...baseStyle
       , [mxConstants.SHAPE_IMAGE]: "images/create.png"
@@ -99,8 +102,8 @@ export default function initToolbar(graph, tbContainer) {
 
   addVertex(
     "images/delete.png",
-    75,
-    75,
+    70,
+    70,
     getStyleStringByObj({
       ...baseStyle
       , [mxConstants.SHAPE_IMAGE]: "images/delete.png"
@@ -111,8 +114,8 @@ export default function initToolbar(graph, tbContainer) {
 
   addVertex(
     "images/loop.png",
-    75,
-    75,
+    70,
+    70,
     getStyleStringByObj({
       ...baseStyle
       , [mxConstants.SHAPE_IMAGE]: "images/loop.png"
@@ -122,8 +125,8 @@ export default function initToolbar(graph, tbContainer) {
 
   addVertex(
     "images/if.png",
-    75,
-    75,
+    70,
+    70,
     getStyleStringByObj({
       ...baseStyle
       , [mxConstants.SHAPE_IMAGE]: "images/if.png"
@@ -133,8 +136,8 @@ export default function initToolbar(graph, tbContainer) {
 
   addVertex(
     "images/sms.png",
-    75,
-    75,
+    70,
+    70,
     getStyleStringByObj({
       ...baseStyle
       , [mxConstants.SHAPE_IMAGE]: "images/sms.png"
@@ -145,8 +148,8 @@ export default function initToolbar(graph, tbContainer) {
 
   addVertex(
     "images/email.png",
-    75,
-    75,
+    70,
+    70,
     getStyleStringByObj({
       ...baseStyle
       , [mxConstants.SHAPE_IMAGE]: "images/email.png"
@@ -156,8 +159,8 @@ export default function initToolbar(graph, tbContainer) {
 
   addVertex(
     "images/database.png",
-    75,
-    75,
+    70,
+    70,
     getStyleStringByObj({
       ...baseStyle
       , [mxConstants.SHAPE_IMAGE]: "images/database.png"
@@ -168,8 +171,8 @@ export default function initToolbar(graph, tbContainer) {
 
   addVertex(
     "images/link.png",
-    75,
-    75,
+    70,
+    70,
     getStyleStringByObj({
       ...baseStyle
       , [mxConstants.SHAPE_IMAGE]: "images/link.png"
@@ -179,8 +182,8 @@ export default function initToolbar(graph, tbContainer) {
 
   addVertex(
     "images/end.png",
-    75,
-    75,
+    70,
+    70,
     getStyleStringByObj({
       ...baseStyle
       , [mxConstants.SHAPE_IMAGE]: "images/end.png"
@@ -188,45 +191,52 @@ export default function initToolbar(graph, tbContainer) {
 
   );
 
+  addVertex(
+    "images/ellipse.gif",
+    70,
+    70,
+    getStyleStringByObj({
+      ...baseStyle,
+
+      [mxConstants.STYLE_SHAPE]: "swimlane"
+    })
+
+  );
+
+
+
 
 
 
 
   // Compute Rectangle 
 
-
-
-
-
   /* 
-  
-  
-  
+    addVertex(
+     "images/rectangle.gif",
+     100,
+     100,
+ 
+     getStyleStringByObj({
+       ...baseStyle
+       ,
+ 
+       [mxConstants.SHAPE_IMAGE]: "https://w7.pngwing.com/pngs/895/199/png-transparent-spider-man-heroes-download-with-transparent-background-free-thumbnail.png"
+     })
+ 
+   );
+   
+   
    addVertex(
-    "images/rectangle.gif",
-    100,
-    100,
-
-    getStyleStringByObj({
-      ...baseStyle
-      ,
-
-      [mxConstants.SHAPE_IMAGE]: "https://w7.pngwing.com/pngs/895/199/png-transparent-spider-man-heroes-download-with-transparent-background-free-thumbnail.png"
-    })
-
-  );
-  
-  
-  addVertex(
-    "images/ellipse.gif",
-    40,
-    40,
-    getStyleStringByObj({
-      ...baseStyle,
-
-      [mxConstants.STYLE_SHAPE]: "ellipse"
-    })
-  ); */
+     "images/ellipse.gif",
+     40,
+     40,
+     getStyleStringByObj({
+       ...baseStyle,
+ 
+       [mxConstants.STYLE_SHAPE]: "ellipse"
+     })
+   ); */
 
   // console.log(mxText.getTextCss());
   /* addVertex(

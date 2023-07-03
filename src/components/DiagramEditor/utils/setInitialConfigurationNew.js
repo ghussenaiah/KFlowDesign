@@ -155,7 +155,7 @@ export default function setInitialConfiguration(graph, toolbarRef) {
     style[mxConstants.STYLE_HORIZONTAL] = false;
     // To improve text quality for vertical labels in some old IE versions...
     style[mxConstants.STYLE_LABEL_BACKGROUNDCOLOR] = '#efefef';
-    graph.getStylesheet().putCellStyle('swimlane', style);
+    // graph.getStylesheet().putCellStyle('swimlane', style);
 
 
 
@@ -184,6 +184,25 @@ export default function setInitialConfiguration(graph, toolbarRef) {
     //group.setEnabled(true);
 
 
+    /*style = [];
+    style[mxConstants.STYLE_SHAPE] = mxConstants.SHAPE_SWIMLANE;
+    style[mxConstants.STYLE_PERIMETER] = mxPerimeter.RectanglePerimeter;
+    style[mxConstants.STYLE_STROKECOLOR] = '#a0a0a0';
+    style[mxConstants.STYLE_FONTCOLOR] = '#606060';
+    style[mxConstants.STYLE_FILLCOLOR] = '#E0E0DF';
+    style[mxConstants.STYLE_GRADIENTCOLOR] = 'white';
+    style[mxConstants.STYLE_STARTSIZE] = 30;
+    style[mxConstants.STYLE_ROUNDED] = false;
+    style[mxConstants.STYLE_FONTSIZE] = 12;
+    style[mxConstants.STYLE_FONTSTYLE] = 0;
+    style[mxConstants.STYLE_HORIZONTAL] = false;
+    // To improve text quality for vertical labels in some old IE versions...
+    style[mxConstants.STYLE_LABEL_BACKGROUNDCOLOR] = '#efefef';
+    graph.getStylesheet().putCellStyle('swimlane', style);*/
+
+
+    /* changing swinmlane styles 
+
     style = [];
     style[mxConstants.STYLE_SHAPE] = mxConstants.SHAPE_SWIMLANE;
     style[mxConstants.STYLE_PERIMETER] = mxPerimeter.RectanglePerimeter;
@@ -198,7 +217,11 @@ export default function setInitialConfiguration(graph, toolbarRef) {
     style[mxConstants.STYLE_HORIZONTAL] = false;
     // To improve text quality for vertical labels in some old IE versions...
     style[mxConstants.STYLE_LABEL_BACKGROUNDCOLOR] = '#efefef';
-    graph.getStylesheet().putCellStyle('swimlane', style);
+    graph.getStylesheet().putCellStyle('swimlane', style); */
+
+
+
+
 
 
     //var group = new mxCell('Group', new mxGeometry(10, 10, 200, 100), 'group');
@@ -212,71 +235,233 @@ export default function setInitialConfiguration(graph, toolbarRef) {
       var node = doc.createElement("S");
       node.setAttribute("ComponentID", "[P01]");
 
-      graph.addCell(group, parent);
+
+      style = [];
+      style[mxConstants.STYLE_SHAPE] = mxConstants.SHAPE_SWIMLANE;
+      style[mxConstants.STYLE_PERIMETER] = mxPerimeter.RectanglePerimeter;
+      style[mxConstants.STYLE_STROKECOLOR] = '#a0a0a0';
+      style[mxConstants.STYLE_FONTCOLOR] = '#606060';
+      style[mxConstants.STYLE_FILLCOLOR] = '#E0E0DF';
+      style[mxConstants.STYLE_GRADIENTCOLOR] = 'white';
+      style[mxConstants.STYLE_STARTSIZE] = 30;
+      style[mxConstants.STYLE_ROUNDED] = false;
+      style[mxConstants.STYLE_FONTSIZE] = 12;
+      style[mxConstants.STYLE_FONTSTYLE] = 0;
+      style[mxConstants.STYLE_HORIZONTAL] = false;
+      // To improve text quality for vertical labels in some old IE versions...
+      style[mxConstants.STYLE_LABEL_BACKGROUNDCOLOR] = '#efefef';
+      graph.getStylesheet().putCellStyle('swimlane', style);
+
+      // Adds cells to the model in a single step
+      graph.getModel().beginUpdate();
+      /*	var w = 30;
+        var h = 30;
+      	
+
+        var swimlaneStyle = 'swimlane;fillColor=#FFA500';
+          var lane1 = graph.insertVertex(parent, null, 'Lane 1', 0, 0, 1000, 100,swimlaneStyle);
+          var lane2 = graph.insertVertex(parent, null, 'Lane 2', 0, 100, 1000, 100, swimlaneStyle);
+          lane1.setConnectable(false);
+          lane2.setConnectable(false);
+
+          var v1 = graph.insertVertex(lane1, null, 'A', 0, 0, w, h);
+          var v2 = graph.insertVertex(lane1, null, 'B', 0, 0, w, h);
+          var v3 = graph.insertVertex(lane1, null, 'C', 0, 0, w, h);
+          var v4 = graph.insertVertex(lane1, null, 'D', 0, 0, w, h);
+          var v5 = graph.insertVertex(lane2, null, 'E', 0, 0, w, h);
+          var v6 = graph.insertVertex(lane2, null, 'F', 0, 0, w, h);
+          var v7 = graph.insertVertex(lane2, null, 'G', 0, 0, w, h);
+          var v8 = graph.insertVertex(lane2, null, 'H', 0, 0, w, h);
+          var e1 = graph.insertEdge(lane1, null, 'ab', v1, v2);
+          var e2 = graph.insertEdge(lane1, null, 'ac', v1, v3);
+          var e3 = graph.insertEdge(parent, null, 'cd', v3, v4);
+          var e4 = graph.insertEdge(parent, null, 'be', v2, v5);
+          var e5 = graph.insertEdge(parent, null, 'cf', v3, v6);
+          var e6 = graph.insertEdge(parent, null, 'ag', v1, v7);
+          var e7 = graph.insertEdge(parent, null, 'gh', v7, v8);
+          var e8 = graph.insertEdge(parent, null, 'gc', v7, v3);
+          var e9 = graph.insertEdge(parent, null, 'gd', v7, v4);
+          var e10 = graph.insertEdge(parent, null, 'eh', v5, v8);
+        	
+          // Executes the layout
+          layout.orientation = mxConstants.DIRECTION_WEST;
+
+          layout.resizeParent = false;
+          layout.execute(parent, [lane1, lane2]);
+          layout.execute(lane1, [v1,v2,v3,v4]);
+          layout.execute(lane2, [v5,v6,v7,v8]); */
 
 
-      graph.enterGroup(group);
+      //  graph.addCell(group, parent);
 
-      // Create and add child cells
-      var child1 = graph.insertVertex(group, null, 'Child 1', 300, 150, 80, 30);
-      var child2 = graph.insertVertex(group, null, 'Child 2', 150, 300, 80, 30);
 
-      // You can continue adding more child cells to the group as needed
 
-      // Exit the group
-      graph.exitGroup();
-      /* var lane1 = graph.insertVertex(parent, null, 'Lane 1', 0, 0, 1000, 100, 'swimlane');
-        var lane2 = graph.insertVertex(parent, null, 'Lane 2', 0, 100, 1000, 100, 'swimlane');
-        lane1.setConnectable(false);
-        lane2.setConnectable(false);
-  
-        layout.orientation = mxConstants.DIRECTION_EAST;
-  
-        layout.resizeParent = false;
-        layout.execute(parent, [lane1, lane2]); */
 
+      /* graph.enterGroup(group);
+ 
+       // Create and add child cells
+       var child1 = graph.insertVertex(group, null, 'Child 1', 300, 150, 80, 30);
+       var child2 = graph.insertVertex(group, null, 'Child 2', 150, 300, 80, 30);
+ 
+       // You can continue adding more child cells to the group as needed
+ 
+       // Exit the group
+       graph.exitGroup(); */
+
+
+      //   var vertex = new mxCell();
+      //  vertex.setVertex(true);
+      // vertex.setStyle('shape=rectangle;fillColor=#FFFFFF');
+
+      // var swimlane = new mxCell();
+      // swimlane.setVertex(true);
+      // swimlane.setStyle('shape=swimlane;fillColor=#F7F7F7');
+
+      // swimlane.insert(vertex);
+
+      // graph.addCell(swimlane);
+      // graph.addCell(vertex);
+
+      var swimlaneStyle = 'swimlane;fillColor=#FFA500';
+      var lane1 = graph.insertVertex(parent, 'swimlane1', 'Lane 1', 200, 200, 800, 500, swimlaneStyle);
+      // var lane2 = graph.insertVertex(lane1, null, 'Lane 2', 110, 150, 50, 50, 'swimlane');
+
+      //console.log(lane1);
+
+      //lane1.geometry.relative = true;
+
+      var swimlaneId = 'swimlane1';
+      var vertexId = 'vertex1';
+      var vertexValue = 'Vertex 1';
+      var vertexX = 100;
+      var vertexY = 100;
+      var vertexWidth = 50;
+      var vertexHeight = 50;
+      var vertexStyle = 'shape=rectangle;fillColor=#ffffff';
+
+      var vertexId2 = 'vertex2';
+      var vertexValue2 = 'Vertex 2';
+
+      var vertexWidth = 50;
+      var vertexHeight = 50;
+      var vertexStyle = 'shape=rectangle;fillColor=#ffffff';
+
+
+      // Find the swimlane cell by its ID
+      // var swimlaneCell = graph.getModel().getCell(swimlaneId);
+
+      // graph.insertVertex(swimlaneCell, vertexId, vertexValue, vertexX, vertexY, vertexWidth, vertexHeight, vertexStyle);
+      //  graph.insertVertex(swimlaneCell, vertexId2, vertexValue2, 200, 200, vertexWidth, vertexHeight, vertexStyle);
+
+      /* var vertex11 = graph.insertVertex(lane1, null, 'Vertex 11', 50, 50, 50, 50);
+ 
+       vertex11.geometry.relative = true;
+ 
+       // vertex11.getGeometry().setRelative(true);
+ 
+       var vertex22 = graph.insertVertex(lane1, null, 'Vertex 12', 100, 100, 50, 50);
+ 
+       vertex22.geometry.relative = true;
+ 
+ 
+       //vertex22.getGeometry().setRelative(true);
+       // var vertex33 = graph.insertVertex(lane2, null, 'lane31', 120, 170, 40, 20);
+ 
+       lane1.setConnectable(false);
+       //lane2.setConnectable(false);
+ 
+       layout.orientation = mxConstants.DIRECTION_EAST;
+ 
+       layout.resizeParent = false;
+       layout.execute(parent, [lane1]); */
+
+      /* var swimlane = graph.getModel().getCell(2);
+       var vertex = new mxCell();
+       vertex.setVertex(true);
+       vertex.setStyle('swimlane;fillColor=#FFA500');
+       graph.addCell(vertex, swimlane);
+ */
+
+
+      /*var w = 30;
+      var h = 30;
+
+
+      var lane1 = graph.insertVertex(parent, null, 'Lane 1', 0, 0, 1000, 100, 'swimlane');
+      var lane2 = graph.insertVertex(parent, null, 'Lane 2', 0, 100, 1000, 100, 'swimlane');
+      lane1.setConnectable(false);
+      lane2.setConnectable(false);
+
+      var v1 = graph.insertVertex(lane1, null, 'A', 0, 0, w, h);
+      var v2 = graph.insertVertex(lane1, null, 'B', 0, 0, w, h);
+      var v3 = graph.insertVertex(lane1, null, 'C', 0, 0, w, h);
+      var v4 = graph.insertVertex(lane1, null, 'D', 0, 0, w, h);
+      var v5 = graph.insertVertex(lane2, null, 'E', 0, 0, w, h);
+      var v6 = graph.insertVertex(lane2, null, 'F', 0, 0, w, h);
+      var v7 = graph.insertVertex(lane2, null, 'G', 0, 0, w, h);
+      var v8 = graph.insertVertex(lane2, null, 'H', 0, 0, w, h);
+      var e1 = graph.insertEdge(lane1, null, 'ab', v1, v2);
+      var e2 = graph.insertEdge(lane1, null, 'ac', v1, v3);
+      var e3 = graph.insertEdge(parent, null, 'cd', v3, v4);
+      var e4 = graph.insertEdge(parent, null, 'be', v2, v5);
+      var e5 = graph.insertEdge(parent, null, 'cf', v3, v6);
+      var e6 = graph.insertEdge(parent, null, 'ag', v1, v7);
+      var e7 = graph.insertEdge(parent, null, 'gh', v7, v8);
+      var e8 = graph.insertEdge(parent, null, 'gc', v7, v3);
+      var e9 = graph.insertEdge(parent, null, 'gd', v7, v4);
+      var e10 = graph.insertEdge(parent, null, 'eh', v5, v8);
+
+      // Executes the layout
+      layout.orientation = mxConstants.DIRECTION_WEST;
+
+      layout.resizeParent = false;
+      layout.execute(parent, [lane1, lane2]);
+      layout.execute(lane1, [v1, v2, v3, v4]);
+      layout.execute(lane2, [v5, v6, v7, v8]);
+
+*/
 
       /* Experiment 
       
       var vertexStyle = 'shape=rectangle;fillColor=white;strokeColor=#000000;strokeWidth=2;rounded=1;';
-
-
+ 
+ 
       var vertex1 = graph.insertVertex(parent, null, 'Vertex 1', 20, 20, 100, 50, vertexStyle);
       var vertex2 = graph.insertVertex(parent, null, 'Vertex 2', 150, 20, 100, 50, vertexStyle);
-
-
+ 
+ 
       function createBoundaryOverlay() {
         var overlay = new mxCellOverlay(new mxShape(), '');
         overlay.update = function (canvas, cell) {
           var bounds = cell.getGeometry();
           var strokeWidth = parseFloat(mxUtils.getValue(this.style, mxConstants.STYLE_STROKEWIDTH, '1'));
           var strokeColor = mxUtils.getValue(this.style, mxConstants.STYLE_STROKECOLOR, '#f70a0a');
-
+ 
           canvas.setStrokeColor(strokeColor);
           canvas.setStrokeWidth(strokeWidth);
           canvas.rect(bounds.x, bounds.y, bounds.width, bounds.height);
           canvas.stroke();
         };
-
+ 
         return overlay;
       }
-
+ 
       var overlay1 = createBoundaryOverlay();
       graph.addCellOverlay(vertex1, overlay1);
-
+ 
       var overlay2 = createBoundaryOverlay();
       graph.addCellOverlay(vertex2, overlay2);
-
+ 
       */
 
       var vx = graph.insertVertex(
         parent,
         null,
         node,
-        75,
-        75,
-        75,
-        75,
+        70,
+        70,
+        70,
+        70,
         // "shape=ellipse;fillColor=yellow;image=https://w7.pngwing.com/pngs/895/199/png-transparent-spider-man-heroes-download-with-transparent-background-free-thumbnail.png"
         //'port;image=images/rectangle.gif;align=right;imageAlign=right;spacingRight=18'
 
@@ -377,6 +562,8 @@ export default function setInitialConfiguration(graph, toolbarRef) {
         alert('Subitem 2');
       }, submenu1);
     };
+
+
 
 
     // Enables rubberband (marquee) selection and a handler for basic keystrokes

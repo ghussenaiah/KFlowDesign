@@ -3,11 +3,28 @@
   text-align: center;
   justify-content: center;
   align-items: center;
+
 }
 
 .container {
+
+  /*width: 2000px;
+  /* Adjust the width as per your graph content */
+
   height: 100vh;
   min-height: 600px;
   min-width: 800px;
   overflow: hidden;
+}
+
+
+.popupDialogcss {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid black;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }

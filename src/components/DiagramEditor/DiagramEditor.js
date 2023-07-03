@@ -195,7 +195,10 @@ export default function App(props) {
 
   const onSelected = evt => {
     if (props.onSelected) {
+      // evt.cells[0].setStyle(';shape=image;verticalAlign=middle;align=center;rounded=true;image=images/if.png');
+      // evt.cells[0].setStyle(';shape=swimlane;verticalAlign=middle;align=center;fillColor=#E6295A;strokeColor=#6482B9;fontColor=#774400;verticalLabelPosition=top;fontSize=20;fontStyle=1;rounded=true;undefined=north');
       props.onSelected(evt);
+
     }
     setSelected(evt.cells[0]);
     setColorPickerVisible(false);
@@ -368,9 +371,21 @@ export default function App(props) {
 
 
         </div>
+
+
         {renderColorPicker()}
+
+
+
       </div>
       <div ref={containerRef} className="mxgraph-drawing-container" />
+
+      <div id="popupDialog" className="popupDialogcss" style={{ display: 'none' }}>
+        <h3>Vertex Details</h3>
+        <p id="vertexName"></p>
+      </div>
     </div>
   );
 }
+
+
